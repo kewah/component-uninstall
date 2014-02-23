@@ -1,0 +1,53 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var path = require('path');
+var resolve = path.resolve;
+var component = require('component');
+var utils = component.utils;
+var program = require('commander');
+var rimraf = require('rimraf');
+var pkg = require('../package.json');
+
+
+program
+  .version(pkg.version)
+  .description(pkg.description)
+  .parse(process.argv);
+
+if (!program.args.length) {
+  program.help();
+}
+
+if (!fs.existsSync('component.json')) {
+  fail('component.json not found');
+}
+
+var manifestPath = resolve('component.json');
+var manifest = require(manifestPath);
+var dir = resolve('components');
+var dep = manifest.dependencies;
+var kv;
+
+for (var depName in dep) {
+  kv = depName.split('/');
+  program.args.forEach(function(arg) {
+    if (arg === depName || arg === kv[1]) {
+      rimraf(path.resolve(dir, kv.join('-')), fail);
+      delete dep[depName];
+      utils.log('uninstalled', depName);
+    }
+  });
+}
+
+fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+
+
+function fail(msg) {
+  if (!msg) {
+    return;
+  }
+
+  utils.error(msg);
+  process.exit(1);
+}

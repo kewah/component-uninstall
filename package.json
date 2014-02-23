@@ -1,0 +1,22 @@
+{
+  "name": "component-uninstall",
+  "version": "0.0.1",
+  "description": "Unistall dependencies from component.json",
+  "author": "kewah <keuwah@gmail.com>",
+  "repository": "git://github.com/kewah/component-uninstall.git",
+  "license": "MIT",
+  "keywords": [
+    "component",
+    "uninstall",
+    "dependency",
+    "component.json"
+  ],
+  "bin": {
+    "component-uninstall": "bin/component-uninstall"
+  },
+  "dependencies": {
+    "commander": "^2.1.0",
+    "rimraf": "^2.2.6",
+    "component": "^0.19.5"
+  }
+}
