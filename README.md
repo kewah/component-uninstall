@@ -1,4 +1,4 @@
-# component-uninstall
+# component-uninstall [![Build Status](https://travis-ci.org/kewah/component-uninstall.png?branch=master)](https://travis-ci.org/kewah/component-uninstall)
 
 Uninstall dependencies from component.json
 
