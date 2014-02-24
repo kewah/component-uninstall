@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
+var fs = require('fs-extra');
 var path = require('path');
 var resolve = path.resolve;
 var component = require('component');
 var utils = component.utils;
 var program = require('commander');
-var rimraf = require('rimraf');
 var pkg = require('../package.json');
 
 
@@ -24,7 +23,7 @@ if (!fs.existsSync('component.json')) {
 }
 
 var manifestPath = resolve('component.json');
-var manifest = require(manifestPath);
+var manifest = fs.readJsonSync(manifestPath);
 var dir = resolve('components');
 var dep = manifest.dependencies;
 var kv;
@@ -33,14 +32,14 @@ for (var depName in dep) {
   kv = depName.split('/');
   program.args.forEach(function(arg) {
     if (arg === depName || arg === kv[1]) {
-      rimraf(path.resolve(dir, kv.join('-')), fail);
+      fs.remove(path.resolve(dir, kv.join('-')), fail);
       delete dep[depName];
       utils.log('uninstalled', depName);
     }
   });
 }
 
-fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+fs.writeJson(manifestPath, manifest, fail);
 
 
 function fail(msg) {
