@@ -14,9 +14,17 @@
   "bin": {
     "component-uninstall": "bin/component-uninstall"
   },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
   "dependencies": {
     "commander": "^2.1.0",
     "rimraf": "^2.2.6",
     "component": "^0.19.5"
+  },
+  "devDependencies": {
+    "mocha": "^1.17.1",
+    "fs-extra": "^0.8.1",
+    "chai": "^1.9.0"
   }
 }

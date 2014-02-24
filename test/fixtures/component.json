@@ -1,0 +1,7 @@
+{
+  "name": "component",
+  "dependencies": {
+    "component/emitter": "*",
+    "nk-components/math-fit": "*"
+  }
+}
