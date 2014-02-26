@@ -47,6 +47,5 @@ function fail(msg) {
     return;
   }
 
-  utils.error(msg);
-  process.exit(1);
+  utils.fatal(msg);
 }
