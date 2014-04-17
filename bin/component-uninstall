@@ -3,8 +3,7 @@
 var fs = require('fs-extra');
 var path = require('path');
 var resolve = path.resolve;
-var component = require('component');
-var utils = component.utils;
+var console = require('component-consoler');
 var program = require('commander');
 var pkg = require('../package.json');
 
@@ -34,7 +33,7 @@ for (var depName in dep) {
     if (arg === depName || arg === kv[1]) {
       fs.remove(path.resolve(dir, kv.join('-')), fail);
       delete dep[depName];
-      utils.log('uninstalled', depName);
+      console.log('uninstalled', depName);
     }
   });
 }
@@ -47,5 +46,5 @@ function fail(msg) {
     return;
   }
 
-  utils.fatal(msg);
+  console.fatal(msg);
 }
